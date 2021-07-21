@@ -134,7 +134,8 @@ header p {
 
 .search button {
   background: black;
-  padding: 1.5em 1.6em;
+  padding: 1.6em;
+  height: 100%;
   position: absolute;
   right: 0;
   border: none;
@@ -171,6 +172,7 @@ main {
   }
   header {
     max-width: 550px;
+    width: 50%;
     margin-bottom: 2.5em;
   }
   header p {
@@ -187,7 +189,7 @@ main {
     padding: 0.8em 1.2em;
   }
   .search button {
-    padding: 1em 1.1em;
+    padding: 1.1em;
   }
   main {
     max-width: 1100px;
@@ -227,10 +229,10 @@ main {
     font-size: 0.8rem;
   }
   .bg img {
-    height: 15em;
+    height: 25em;
   }
   header p {
-    top: 10.5em;
+    top: 10em;
   }
   .search input {
     font-size: 1.1rem;
@@ -248,7 +250,7 @@ main {
     font-size: 1rem;
   }
   .search button {
-    padding: 1.15em 1.25em;
+    padding: 1.25em;
   }
   main {
     padding: 0.5em 0 0;

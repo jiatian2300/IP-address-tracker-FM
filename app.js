@@ -11,6 +11,7 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
     searchHandler(input.value);
     fetchIpify();
+    removeError();
     input.value = "";
 });
 
@@ -24,6 +25,8 @@ var ipAdd = "";
 var domain = "";
 
 // METHOD 1: Fetch
+
+// check if the response received has any errors due to invalid input
 function handleErrors(response) {
     if (!response.ok) {
         throw Error(response.statusText);
@@ -31,24 +34,27 @@ function handleErrors(response) {
     return response.json();
 }
 
+// remove all error messages
 function removeError() {
     header.classList.remove("ip_error");
     header.classList.remove("domain_error");
 }
 
+// check if the input was a domain or ip address
 function searchHandler(input) {
     var expression =
         /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
 
     domain = ipAdd = "";
-    if (input.match(regex)) {
+    if (input.match(regex) || /[a-z]/i.test(input)) {
         domain = input;
     } else {
         ipAdd = input;
     }
 }
 
+// fetch the data from the Ipify API and update the corresponding p elements in the html & throw an error message if there are any errors
 function fetchIpify() {
     var url = `https://geo.ipify.org/api/v1?apiKey=${api_key}&ipAddress=${ipAdd}&domain=${domain}`;
 
@@ -120,7 +126,7 @@ L.tileLayer(
 
 // Custom marker icon
 var locIcon = L.icon({
-    iconUrl: "/images/icon-location.svg",
+    iconUrl: "images/icon-location.svg",
 
     iconSize: [35, 43], // size of the icon
     iconAnchor: [22, 43], // point of the icon which will correspond to marker's location

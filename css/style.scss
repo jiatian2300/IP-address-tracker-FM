@@ -121,7 +121,8 @@ header {
 
     button {
         background: black;
-        padding: 1.5em 1.6em;
+        padding: 1.6em;
+        height: 100%;
         position: absolute;
         right: 0;
         border: none;
@@ -161,6 +162,7 @@ main {
 
     header {
         max-width: 550px;
+        width: 50%;
         margin-bottom: 2.5em;
         p {
             top: 9.4em;
@@ -181,7 +183,7 @@ main {
         }
 
         button {
-            padding: 1em 1.1em;
+            padding: 1.1em;
         }
     }
 
@@ -228,11 +230,11 @@ main {
     }
 
     .bg img {
-        height: 15em;
+        height: 25em;
     }
 
     header p {
-        top: 10.5em;
+        top: 10em;
     }
 
     .search {
@@ -245,7 +247,7 @@ main {
         }
 
         button {
-            padding: 1.15em 1.25em;
+            padding: 1.25em;
         }
     }
 

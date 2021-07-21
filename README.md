@@ -13,8 +13,6 @@ This is a solution to the [IP address tracker challenge on Frontend Mentor](http
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
@@ -28,7 +26,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Github Page](https://your-solution-url.com)
+- Solution URL: [Github Page](https://jiatian2300.github.io/IP-address-tracker-FM/)
 
 ## My process
 
@@ -39,11 +37,6 @@ Users should be able to:
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
@@ -60,15 +53,36 @@ Center position absolute div
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+Javascript API fetch
+```js
+function fetchIpify() {
+    var url = `https://geo.ipify.org/api/v1?apiKey=${api_key}&ipAddress=${ipAdd}&domain=${domain}`;
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+    fetch(url)
+        .then(handleErrors)
+        .then(function (data) {
+            ip.innerHTML = data.ip;
+            if (data.location.region) {
+                region = ", " + data.location.region;
+            } else region = "";
+            loc.innerHTML = `${data.location.city}${region}, ${data.location.country}`;
+            time.innerHTML = `UTC ${data.location.timezone}`;
+            isp.innerHTML = data.isp;
+
+            lat = data.location.lat;
+            long = data.location.lng;
+
+            updateMap();
+        })
+        .catch(function () {
+            header.classList.add(domain ? "domain_error" : "ip_error");
+            ip.innerHTML = loc.innerHTML = time.innerHTML = isp.innerHTML = "-";
+        });
+}
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 
 ### Useful resources
 

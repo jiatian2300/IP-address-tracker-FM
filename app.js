@@ -120,7 +120,7 @@ L.tileLayer(
 
 // Custom marker icon
 var locIcon = L.icon({
-    iconUrl: "/images/icon-location.svg",
+    iconUrl: "./images/icon-location.svg",
 
     iconSize: [35, 43], // size of the icon
     iconAnchor: [22, 43], // point of the icon which will correspond to marker's location

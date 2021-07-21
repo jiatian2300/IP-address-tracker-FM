@@ -87,4 +87,4 @@ function fetchIpify() {
 ### Useful resources
 
 - [Javascript Fetch](https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data)
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Javascript Fetch Tutorial](https://www.youtube.com/watch?v=cuEtnrL9-H0) - error-handling for failed API fetch

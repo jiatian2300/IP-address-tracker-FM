@@ -117,19 +117,19 @@ header p {
 }
 
 .search input::-webkit-input-placeholder {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .search input:-ms-input-placeholder {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .search input::-ms-input-placeholder {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .search input::placeholder {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .search button {

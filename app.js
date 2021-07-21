@@ -9,15 +9,19 @@ const header = document.querySelector("header");
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+    searchHandler(input.value);
     fetchIpify();
     input.value = "";
-    fetchMap();
 });
 
 /*==========
   ipify API
 ============*/
 var api_key = "at_4HqOdkI9UUNQbjCqP9A4ttpepijQr";
+var lat = 51.505;
+var long = -0.09;
+var ipAdd = "";
+var domain = "";
 
 // METHOD 1: Fetch
 function handleErrors(response) {
@@ -28,11 +32,25 @@ function handleErrors(response) {
 }
 
 function removeError() {
-    header.classList.remove("error");
+    header.classList.remove("ip_error");
+    header.classList.remove("domain_error");
+}
+
+function searchHandler(input) {
+    var expression =
+        /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+
+    domain = ipAdd = "";
+    if (input.match(regex)) {
+        domain = input;
+    } else {
+        ipAdd = input;
+    }
 }
 
 function fetchIpify() {
-    var url = `https://geo.ipify.org/api/v1?apiKey=${api_key}&ipAddress=${input.value}`;
+    var url = `https://geo.ipify.org/api/v1?apiKey=${api_key}&ipAddress=${ipAdd}&domain=${domain}`;
 
     fetch(url)
         .then(handleErrors)
@@ -44,9 +62,14 @@ function fetchIpify() {
             loc.innerHTML = `${data.location.city}${region}, ${data.location.country}`;
             time.innerHTML = `UTC ${data.location.timezone}`;
             isp.innerHTML = data.isp;
+
+            lat = data.location.lat;
+            long = data.location.lng;
+
+            updateMap();
         })
         .catch(function () {
-            header.classList.add("error");
+            header.classList.add(domain ? "domain_error" : "ip_error");
             ip.innerHTML = loc.innerHTML = time.innerHTML = isp.innerHTML = "-";
         });
 }
@@ -69,16 +92,45 @@ function fetchIpify() {
     });
 }*/
 
-function fetchMap() {
-    var map = L.map("map").setView([51.505, -0.09], 13);
+/*===============
+  leaflet.js API
+=================*/
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+// Check the screen size to determine if zoom controls are necessary
+var showZoom = true;
+if (screen.width < 555) showZoom = false;
+
+// Initialize map, set view to lat long and set zoom level
+var mymap = L.map("map", { zoomControl: showZoom }).setView([lat, long], 16);
+
+// Add tile layer to map
+L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+    {
         attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
+            'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+            "pk.eyJ1IjoiZWxhaW5ldGFuMTIzIiwiYSI6ImNrcmMzdGFnOTAwbWMyem4wbHg0MGJiOW8ifQ.EKqdbz4YM_ILsDo8nA9XRQ",
+    }
+).addTo(mymap);
 
-    L.marker([51.5, -0.09])
-        .addTo(map)
-        .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
-        .openPopup();
+// Custom marker icon
+var locIcon = L.icon({
+    iconUrl: "/images/icon-location.svg",
+
+    iconSize: [35, 43], // size of the icon
+    iconAnchor: [22, 43], // point of the icon which will correspond to marker's location
+});
+
+// Adding marker to location
+const marker = L.marker([lat, long], { icon: locIcon }).addTo(mymap);
+
+// Update map view and marker location when a new search is made
+function updateMap() {
+    marker.setLatLng([lat, long]);
+    mymap.setView([lat, long], 16);
 }

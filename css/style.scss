@@ -24,7 +24,7 @@ img {
 h1 {
     color: white;
     font-weight: 500;
-    font-size: 1.7rem;
+    font-size: 1.8rem;
 
     margin: 1em 0;
 }
@@ -34,7 +34,7 @@ h2 {
     margin: 0;
     margin-bottom: 1.2em;
     font-size: 1.3rem;
-    font-weight: 500;
+    font-weight: 700;
     // word-break: break-all;
 }
 
@@ -43,13 +43,13 @@ h3 {
     text-transform: uppercase;
     font-size: 0.7rem;
     letter-spacing: 1px;
-    margin: 0.9em 0;
+    margin: 0.85em 0;
 }
 
 .bg {
     position: absolute;
     top: 0;
-    height: 140%;
+    height: 130%;
     width: 100%;
     left: 0;
     z-index: -1;
@@ -58,12 +58,11 @@ h3 {
     flex-direction: column;
 
     img {
-        height: 27em;
+        height: 30em;
         object-fit: cover;
     }
 
-    .map {
-        background: #000;
+    #map {
         height: 100%;
     }
 }
@@ -71,26 +70,32 @@ h3 {
 header {
     margin: 0 auto;
     width: 100%;
-    max-width: 550px;
+    max-width: 450px;
+    position: relative;
 
     p {
         display: none;
-    }
-}
-
-.error {
-    position: relative;
-    p {
-        display: block;
         font-size: 0.7rem;
         color: rgb(255, 111, 111);
         letter-spacing: 1px;
 
         width: fit-content;
         position: absolute;
-        top: 9.6em;
+        top: 10.5em;
         left: 50%;
         transform: translate(-50%, 0);
+    }
+}
+
+.ip_error {
+    #ip_error {
+        display: block;
+    }
+}
+
+.domain_error {
+    #domain_error {
+        display: block;
     }
 }
 
@@ -98,33 +103,42 @@ header {
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-    margin-bottom: 1.5em;
+    margin-bottom: 1.7em;
     box-shadow: rgba($color: $v-dark-gray, $alpha: 0.1) 0px 3px 5px;
 
     input {
         width: 100%;
-        padding: 1.1em 1.2em;
+        padding: 1.3em 1.2em;
         border: none;
         font-size: 1rem;
         font-weight: 400;
         font-family: "Rubik", sans-serif;
+
+        &::placeholder {
+            font-size: 0.9rem;
+        }
     }
 
     button {
         background: black;
-        padding: 1.4em 1.5em;
+        padding: 1.5em 1.6em;
         position: absolute;
         right: 0;
         border: none;
+        cursor: pointer;
+
+        &:hover {
+            background: rgb(46, 46, 46);
+        }
     }
 }
 
 main {
     margin: 0 auto;
     width: 100%;
-    max-width: 550px;
+    max-width: 450px;
     background: white;
-    padding: 1em 1em 0.5em;
+    padding: 1em 1em 0.3em;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: rgba($color: $v-dark-gray, $alpha: 0.1) 0px 3px 5px;
@@ -138,7 +152,7 @@ main {
 
     h2 {
         font-size: 1.3rem;
-        margin-bottom: 0.7em;
+        margin-bottom: 0.8em;
     }
 
     h3 {
@@ -148,17 +162,16 @@ main {
     header {
         max-width: 550px;
         margin-bottom: 2.5em;
+        p {
+            top: 9.4em;
+        }
     }
 
     .bg {
         height: 100%;
         img {
-            height: 20em;
+            height: 21em;
         }
-    }
-
-    .error p {
-        top: 9em;
     }
 
     .search {
@@ -174,7 +187,7 @@ main {
 
     main {
         max-width: 1100px;
-        padding: 1em 0 0;
+        padding: 0.8em 0 0;
 
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -218,13 +231,17 @@ main {
         height: 15em;
     }
 
-    .error p {
-        top: 10em;
+    header p {
+        top: 10.5em;
     }
 
     .search {
         input {
             font-size: 1.1rem;
+
+            &::placeholder {
+                font-size: 1rem;
+            }
         }
 
         button {
